@@ -1,27 +1,69 @@
-<div align="center">
+![image](https://github.com/hyeji111544/zeropie-back/assets/154953972/325a935b-47fc-4526-8f2f-e8e85a46208b)<div align="center">
   <img src="https://github.com/green-lotte2/community-site-back-team1/assets/154953972/801ce44e-8d14-4346-99d7-943c6e2ff55c" alt="zeroPie2" width="400"/>
 </div>
 
-# community-site-back-team1
-1조 롯데정보통신 사내 커뮤니티 사이트 백엔드 (ZeroPie)
 
-## 프로젝트 개요
-### 1. 프로젝트 주제
- 사내 커뮤니티 사이트를 개발하여 직원들이 보다 원활하게 소통하고 협업할 수 있도록 지원하는 것을 목표로 합니다
+## 1. 프로젝트 주제
+- 협업과 커뮤니케이션의 어려움을 `제로`로 만드는 제로파이!
+- 협업의 효율성을 극대화 하고자 고민한 결과로
+- 양방향 통신 기술과, 이를 활용할 수 있는 솔루션을 위해 그룹웨어를 도입하게 되었습니다.
 
-### 2. 프로젝트 기간
- 24.05.20 ~ 24.06.27
+## 2. 프로젝트 기간
+- 24.05.20 ~ 24.06.21
 
-### 3. 배경 및 목적
+## 3. 사용 기술
+- **프로그래밍 언어**: Java, JavaScript
+- **프레임워크**: Spring Boot, React
+- **ORM**: Spring Data JPA
+- **보안**: Spring Security, OAuth2 Client
+- **데이터베이스**: MySQL
+- **배포**: AWS(EC2, CodeDeploy, S3), GitHub Actions 
 
 ### 4. 주요기능
+- 채팅, 캘린더, 칸반보드, 페이지, 게시판
 
-### 5. 팀 구성
+### 5. 팀 구성(4인)
+- 윤혜지 (팀장) : 관리자, 프로젝트 기능 구현 및 개발 일정 관리
+- 박임재 : CSS 디자인, 메인 페이지, 페이지 기능 구현
+- 오아람 : 회원, 고객센터, 채팅 구현
+- 김광은 : 게시판, 캘린더 구현
+
+### 6. 시연 영상
+
+[![시연영상](http://img.youtube.com/vi/KPgMtl_yy-I/0.jpg)](https://youtu.be/KPgMtl_yy-I?si=W6L58YW_fNcmnF2y)
+
+
+## 프로젝트 진행하며
+<details>
+<summary>상세보기</summary>
+
+### 1. 프론트와 백 서버 각각 배포하기.
+백 서버는 AWS 구축 후 배포 하였으나 React 프로젝트 배포를 위해 공부한 내용입니다.
+[이동](https://rune-toothpaste-826.notion.site/git-page-0ff3de28d5ba42b8bbf0d63bf7de0909?pvs=4)
+
+netlify 와 git page 로 각각 배포 완료 하였으나
+AWS 는 `http` , Netlify 는 `https` 를 사용하는 문제가 있어 해결방법을 찾던 중
+프론트 역시 AWS 에서 배포하여 `http` 로 맞추기로 결정하였습니다.
+
+### 2. React 배포 후 새로고침 시 404 에러 발생
+배포가 완료된 뒤 프론트와 백을 연결하여 배포 테스트를 하던 중 페이지 뒤로가기, 새로고침 시 404 에러가 발생하는 것을
+알게 되었습니다. 이는 React 의 SPA 의 특성때문이었는데 해결하는 과정은 다음과 같습니다. 
+[이동](https://rune-toothpaste-826.notion.site/React-404-a94a27d8961e48df92a5ab75e138dfcc?pvs=4)
+
+### 3. 칸반보드 만들기
+drag and drop 라이브러리를 활용하여 깃허브 프로젝트 처럼 칸반보드를 구현해야 했습니다.
+빠른 개발을 위해 [kanban-board](https://github.com/aman162000/kanban-board?tab=readme-ov-file) 의 코드를 활용하여 개발 했습니다.
+
+이를 db에 저장하기 위해 공부한 내용은 다음과 같습니다.
+[이동](https://rune-toothpaste-826.notion.site/56de294d670349239aba6e8534173790?pvs=4)
+
+
+</details>
 
 ## 프로젝트 버전 업데이트 내역
 <details>
 <summary>상세보기</summary>
-
+  
 ### 0.0.1-SNAPSHOT / 24.05.24
 - 게시판 글 목록, 상세 뷰, 글쓰기, 글 수정 작업
 - 사원 회원가입 기능 작업
