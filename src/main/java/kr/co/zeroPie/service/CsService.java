@@ -266,8 +266,6 @@ public class CsService {
         //댓글을 삭제
         csCommentRepository.deleteById(csComNo);
 
-
-
         return ResponseEntity.status(HttpStatus.OK).body(1);
     }
 }

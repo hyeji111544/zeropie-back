@@ -65,6 +65,9 @@ public class StfController {
 
             log.info("login...3 : " + user);
 
+            // 회원 플랜 정보 조회
+            int planState = stfService.selectStfPlan(user.getPlanStatusNo());
+            
 
             // 토큰 발급(액세스, 리프레쉬)
             String access = jwtProvider.createToken(user, 1); // 1일
@@ -80,6 +83,7 @@ public class StfController {
             map.put("userEmail", user.getStfEmail());
             map.put("userImg", user.getStfImg());
             map.put("userRole", user.getStfRole());
+            map.put("planState", planState);
             map.put("accessToken", access);
             map.put("refreshToken", refresh);
 
@@ -164,6 +168,10 @@ public class StfController {
 
             lists.put("result", "성공");
             lists.put("savedCode", String.valueOf(savedCode));
+
+            log.info("지금 이게 문제라 들어와야함 : "+String.valueOf(savedCode));
+
+
             return ResponseEntity.ok().body(lists);
         } else {
 
@@ -230,14 +238,17 @@ public class StfController {
 
     //아이디 찾기에서 이메일 인증 보내기
     @GetMapping("/findIdAndSendEmail")
-    public ResponseEntity<?> findIdAndSendEmail(@RequestParam("email") String email) {
+    public ResponseEntity<?> findIdAndSendEmail(@RequestParam("email") String email,@RequestParam("name")String name) {
 
 
         log.info("일단 들어오니?");
 
         log.info("email : " + email);
+        log.info("name : " + name);
 
-        int count = stfService.findStf(email);//같은 이메일이 몇개인지 체크
+
+        int count = stfService.findStfUseFindId(email,name);//가입한 사용자인지 체크
+
 
         log.info("count={}", count);
 
@@ -257,7 +268,36 @@ public class StfController {
         }
     }
 
+     //아이디 찾기에서 이메일 인증 보내기
+    @GetMapping("/findPassAndSendEmail")
+    public ResponseEntity<?> findPassAndSendEmail(@RequestParam("email") String email,@RequestParam("id")String id) {
 
+
+        log.info("일단 들어오니?");
+
+        log.info("email : " + email);
+
+        int count = stfService.findStfUseFindPass(email,id);//가입한 사용자인지 체크
+
+        log.info("count={}", count);
+
+        Map<String, String> lists = new HashMap<>();
+
+        if (count >= 1) {//가입한 사용자
+            log.info("email={}", email);
+            long savedCode = stfService.sendEmailCode(email);//이메일을 보내고 서버가 보낸 코드를 저장
+
+            lists.put("result", "성공");
+            lists.put("savedCode", String.valueOf(savedCode));
+            return ResponseEntity.ok().body(lists);
+        } else {
+
+            lists.put("result", "실패");
+            return ResponseEntity.ok().body(lists);
+        }
+    }
+
+    //아이디 찾기
     @GetMapping("/findId")
     public ResponseEntity<?> findId(@RequestParam("email")String email, @RequestParam("name")String name){
 
@@ -275,6 +315,7 @@ public class StfController {
 
     }
 
+    //비밀번호 변경
     @PostMapping("/updatePass")
     public ResponseEntity<?> updatePass(StfDTO stfDTO){
 
@@ -315,10 +356,9 @@ public class StfController {
         StfDTO stfDTO = stfService.getUserInfo(stfNo);
 
         return  ResponseEntity.ok().body(stfDTO);
-
     }
 
-
+    //"기본값 * 유저 수"를 출력하기 위해 유저수를 구함
     @GetMapping("/getCountUser")
     public ResponseEntity<?> getCountUser(){
 
@@ -331,14 +371,51 @@ public class StfController {
         return ResponseEntity.ok().body(count);
     }
 
+    //플랜 결제
     @PostMapping("/postPay")
     public ResponseEntity<?> postPay(@RequestBody PlanOrderDTO planOrderDTO){
 
         log.info("controller - postPay - planOrderDTO : "+planOrderDTO);
 
-        stfService.planOrder(planOrderDTO);
+        int planNo = stfService.planOrder(planOrderDTO);
+
+        return ResponseEntity.ok().body(planNo);
+
+    }
+
+    //선택한 플랜 저장
+    @GetMapping("/savePlan")
+    public ResponseEntity<?> savePlan(@RequestParam("user")String user, @RequestParam("planNo")int planNo){
+
+        log.info("controller - savePlan - user : "+user);
+        log.info("controller - planType : "+planNo);
+
+        stfService.savePlan(user,planNo);
 
         return ResponseEntity.ok().body(1);
 
+    }
+
+    //무료플랜
+    @GetMapping("/freePlan")
+    public ResponseEntity<?> freePlan(@RequestParam("stfNo")String stfNo){
+
+         return stfService.freePlan(stfNo);
+
+    }
+    
+    //관리자 플랜 구하기
+    @GetMapping("/getPlanStatusNo")
+    public ResponseEntity<?> getPlanStatusNo(){
+
+       return stfService.findAdminPlan();
+
+    }
+
+    // 전화번호 중복 검사
+    @PostMapping("/checkPh")
+    public ResponseEntity<?> checkPh(@RequestBody Map<String, String> request) {
+        String stfPh = request.get("stfPh");
+        return stfService.checkStfPh(stfPh);
     }
 }
