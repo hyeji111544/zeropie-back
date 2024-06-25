@@ -29,7 +29,8 @@
 
 ### 6. 시연 영상
 
-[![시연영상](http://img.youtube.com/vi/KPgMtl_yy-I/0.jpg)](https://youtu.be/KPgMtl_yy-I?si=W6L58YW_fNcmnF2y)
+[![시연영상](http://img.youtube.com/vi/z9AovY82XFQ/0.jpg)](https://youtu.be/z9AovY82XFQ?si=7DkK2PQnGHTBG7v2)
+
 
 
 ## 프로젝트 진행하며
