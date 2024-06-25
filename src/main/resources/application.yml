@@ -20,10 +20,9 @@ spring:
         name: community-site-back-team1
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: Abcd1234!
+        password: 
         url: jdbc:mysql://15.165.24.202/zeropie
-        username: team1
-
+        username:
     data:
         redis:
             host: localhost
@@ -54,10 +53,10 @@ spring:
                         redirect-uri: http://15.165.24.202/auth
 
                         # 카카오 > 내 애플리케이션 > 요약정보 > REST API 키 입력
-                        client-id: 3227ae68356a2d41ac3d1a0a451d3676
+                        client-id: 
 
                         # 카카오 > 내 애플리케이션 > 카카오 로그인 > 보안 > Client Secret 생성 후 입력
-                        client-secret: LypzViPdKrOEqoDneoYdF3j84fw9WAlK
+                        client-secret: 
 
                         client-authentication-method: client_secret_post
                         scope: profile_nickname, profile_image, account_email
@@ -75,8 +74,8 @@ spring:
     mail:
         host: smtp.gmail.com
         port: 587
-        username: oharam0413@gmail.com
-        password: xwov wdxm kafb vhun
+        username:
+        password:
         properties:
             mail:
                 smtp:
@@ -92,7 +91,7 @@ spring:
 
 jwt:
     issuer: hyeji111544@gmail.com
-    secret: 4XudNUpSmog3lwI9thJFejF7YfBBQnCI
+    secret:
 
 file:
     upload:
